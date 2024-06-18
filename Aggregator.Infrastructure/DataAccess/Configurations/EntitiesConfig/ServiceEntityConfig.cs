@@ -21,8 +21,17 @@ internal class ServiceEntityConfig : IEntityTypeConfiguration<ServiceEntity>
 
         builder.Property(x => x.ServiceTypeId);
 
-        builder.Property(e => e.Data)
-            .HasColumnType("jsonb");
+        builder.OwnsOne(p => p.ServiceData, serviceData =>
+        {
+            serviceData.ToJson();
+
+            serviceData.OwnsMany(s => s.Children, node =>
+            {
+                node.ToJson();
+                // Depth increases application startup time
+                ConfigureChildren(node, 10);
+            });
+        });
 
         builder.HasOne(e => e.ServiceType)
             .WithMany()
@@ -36,5 +45,17 @@ internal class ServiceEntityConfig : IEntityTypeConfiguration<ServiceEntity>
 
         builder.HasIndex(e => new { e.CompanyId, e.ServiceTypeId })
             .IsUnique();
+    }
+
+    public void ConfigureChildren(OwnedNavigationBuilder<ServiceDataNode, ServiceDataNode> node, int maxDepth)
+    {
+        if (maxDepth <= 0) return;
+        
+        node.OwnsMany(x => x.Children, child =>
+        {
+            child.ToJson();
+
+            ConfigureChildren(child, --maxDepth);
+        });
     }
 }

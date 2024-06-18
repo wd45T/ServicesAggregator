@@ -4,7 +4,7 @@ using MediatR;
 
 namespace Aggregator.API.Endpoints.User;
 
-public class GetServicesEndpoint : EndpointWithoutRequest<IEnumerable<string>>
+public class GetServicesEndpoint : EndpointWithoutRequest<object>
 {
     public override void Configure()
     {

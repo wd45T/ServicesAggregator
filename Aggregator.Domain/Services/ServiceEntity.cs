@@ -7,22 +7,23 @@ public class ServiceEntity : BaseEntity
 {
     public string Name { get; set; }
     public string? Description { get; set; }
-    public string Data { get; set; }
+    public ServiceDataNode ServiceData { get; set; }
     public ServiceTypeEntity ServiceType { get; set; }
     public CompanyEntity Company { get; set; }
     public long CompanyId { get; set; }
     public long ServiceTypeId { get; set; }
 
-    public ServiceEntity() { }
+    private ServiceEntity() { }
 
-    public static ServiceEntity Create(string name, string? description, CompanyEntity company, ServiceTypeEntity serviceType)
+    public static ServiceEntity Create(string name, string? description, CompanyEntity company, ServiceTypeEntity serviceType, ServiceDataNode serviceData)
     {
         return new ServiceEntity
         {
             Name = name,
             Description = description,
             Company = company,
-            ServiceType = serviceType
+            ServiceType = serviceType,
+            ServiceData = serviceData
         };
     }
 }

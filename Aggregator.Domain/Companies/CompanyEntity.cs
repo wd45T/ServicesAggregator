@@ -12,9 +12,9 @@ public class CompanyEntity : BaseEntity
 
     private List<ServiceEntity> _services = [];
 
-    public CompanyEntity() { }
+    private CompanyEntity() { }
 
-    public static CompanyEntity Create(string name, string? description, string logoUrl)
+    public static CompanyEntity Create(string name, string? description = null, string? logoUrl = null)
     {
         return new CompanyEntity
         {

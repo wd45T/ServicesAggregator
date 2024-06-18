@@ -10,6 +10,7 @@ public interface IUnitOfWork : IDisposable
     DbSet<ServiceEntity> Services { get; }
     DbSet<CompanyEntity> Companies { get; }
 
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     Task BeginTransactionAsync();
     Task CommitTransactionAsync();
     Task RollbackTransactionAsync();

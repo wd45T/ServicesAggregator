@@ -1,8 +1,8 @@
+using Aggregator.Application.IoC;
+using Aggregator.Infrastructure.DataAccess;
+using Aggregator.Infrastructure.IoC;
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using Aggregator.Application.IoC;
-using Aggregator.Infrastructure.IoC;
-using Aggregator.Infrastructure.DataAccess;
 
 var builder = WebApplication.CreateBuilder();
 
@@ -33,5 +33,7 @@ app.UseFastEndpoints(c =>
     .UseSwaggerGen();
 
 app.Services.MigrateDatabase<UnitOfWork>();
+
+app.Services.InitializeData<UnitOfWork>();
 
 app.Run();

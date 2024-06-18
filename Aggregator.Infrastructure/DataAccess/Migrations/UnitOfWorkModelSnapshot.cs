@@ -60,31 +60,6 @@ namespace Aggregator.Infrastructure.DataAccess.Migrations
                         .HasName("pk_companies");
 
                     b.ToTable("companies", "companies");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2674), new TimeSpan(0, 0, 0, 0, 0)),
-                            Description = "Let's clean up your shit",
-                            LogoUrl = "https://comenian.org/wp-content/uploads/2023/04/istockphoto-1340208950-612x612-1.jpeg",
-                            Name = "House Cleaning"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2676), new TimeSpan(0, 0, 0, 0, 0)),
-                            Description = "Enjoy our pizza",
-                            Name = "Cooking pizza"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2677), new TimeSpan(0, 0, 0, 0, 0)),
-                            Description = "Our hands are not for boredom",
-                            LogoUrl = "https://media.istockphoto.com/id/1463132842/vector/wrench-in-hand-screwdriver-brush-repair-and-service-sign.jpg?s=612x612&w=0&k=20&c=RBWR7k6jh09E9UDXOqviT9hAaex4qmrqX-6gYPnEGbk=",
-                            Name = "Handyman"
-                        });
                 });
 
             modelBuilder.Entity("Aggregator.Domain.Services.ServiceEntity", b =>
@@ -103,11 +78,6 @@ namespace Aggregator.Infrastructure.DataAccess.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
-
-                    b.Property<string>("Data")
-                        .IsRequired()
-                        .HasColumnType("jsonb")
-                        .HasColumnName("data");
 
                     b.Property<DateTimeOffset?>("DeletedAt")
                         .HasColumnType("timestamp with time zone")
@@ -141,54 +111,6 @@ namespace Aggregator.Infrastructure.DataAccess.Migrations
                         .HasDatabaseName("ix_services_company_id_service_type_id");
 
                     b.ToTable("services", "services");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CompanyId = 1L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2694), new TimeSpan(0, 0, 0, 0, 0)),
-                            Data = "{}",
-                            Description = "Let's clean up your problem",
-                            Name = "Let's clean",
-                            ServiceTypeId = 1L
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CompanyId = 2L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2695), new TimeSpan(0, 0, 0, 0, 0)),
-                            Data = "{}",
-                            Name = "Delivery",
-                            ServiceTypeId = 2L
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CompanyId = 3L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2696), new TimeSpan(0, 0, 0, 0, 0)),
-                            Data = "{}",
-                            Name = "Super Cleaning",
-                            ServiceTypeId = 1L
-                        },
-                        new
-                        {
-                            Id = 4L,
-                            CompanyId = 3L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2697), new TimeSpan(0, 0, 0, 0, 0)),
-                            Data = "{}",
-                            Name = "Super Delivery",
-                            ServiceTypeId = 2L
-                        },
-                        new
-                        {
-                            Id = 5L,
-                            CompanyId = 3L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2699), new TimeSpan(0, 0, 0, 0, 0)),
-                            Data = "{}",
-                            Name = "Super Kitchen",
-                            ServiceTypeId = 3L
-                        });
                 });
 
             modelBuilder.Entity("Aggregator.Domain.Services.ServiceTypeEntity", b =>
@@ -220,27 +142,11 @@ namespace Aggregator.Infrastructure.DataAccess.Migrations
                     b.HasKey("Id")
                         .HasName("pk_service_types");
 
-                    b.ToTable("service_types", "services");
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("ix_service_types_name");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2641), new TimeSpan(0, 0, 0, 0, 0)),
-                            Name = "Cleaning"
-                        },
-                        new
-                        {
-                            Id = 2L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2650), new TimeSpan(0, 0, 0, 0, 0)),
-                            Name = "Delivery"
-                        },
-                        new
-                        {
-                            Id = 3L,
-                            CreatedAt = new DateTimeOffset(new DateTime(2024, 6, 17, 15, 29, 19, 886, DateTimeKind.Unspecified).AddTicks(2651), new TimeSpan(0, 0, 0, 0, 0)),
-                            Name = "Kitchen"
-                        });
+                    b.ToTable("service_types", "services");
                 });
 
             modelBuilder.Entity("Aggregator.Domain.Services.ServiceEntity", b =>
@@ -259,7 +165,79 @@ namespace Aggregator.Infrastructure.DataAccess.Migrations
                         .IsRequired()
                         .HasConstraintName("fk_services_service_types_service_type_id");
 
+                    b.OwnsOne("Aggregator.Domain.Services.ServiceDataNode", "ServiceData", b1 =>
+                        {
+                            b1.Property<long>("ServiceEntityId")
+                                .HasColumnType("bigint");
+
+                            b1.Property<string>("Description")
+                                .HasColumnType("text");
+
+                            b1.Property<int>("Id")
+                                .HasColumnType("integer");
+
+                            b1.Property<string>("ImageUrl")
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Name")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<decimal?>("Price")
+                                .HasColumnType("numeric");
+
+                            b1.HasKey("ServiceEntityId")
+                                .HasName("pk_services");
+
+                            b1.ToTable("services", "services");
+
+                            b1.ToJson("service_data");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ServiceEntityId")
+                                .HasConstraintName("fk_services_services_service_entity_id");
+
+                            b1.OwnsMany("Aggregator.Domain.Services.ServiceDataNode.Children#ServiceDataNode", "Children", b2 =>
+                                {
+                                    b2.Property<long>("ServiceDataNodeServiceEntityId")
+                                        .HasColumnType("bigint");
+
+                                    b2.Property<int>("Id")
+                                        .ValueGeneratedOnAdd()
+                                        .HasColumnType("integer");
+
+                                    b2.Property<string>("Description")
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("ImageUrl")
+                                        .HasColumnType("text");
+
+                                    b2.Property<string>("Name")
+                                        .IsRequired()
+                                        .HasColumnType("text");
+
+                                    b2.Property<decimal?>("Price")
+                                        .HasColumnType("numeric");
+
+                                    b2.HasKey("ServiceDataNodeServiceEntityId", "Id")
+                                        .HasName("pk_services");
+
+                                    b2.ToTable("services", "services");
+
+                                    b2.ToJson("service_data");
+
+                                    b2.WithOwner()
+                                        .HasForeignKey("ServiceDataNodeServiceEntityId")
+                                        .HasConstraintName("fk_services_services_service_data_node_service_entity_id");
+                                });
+
+                            b1.Navigation("Children");
+                        });
+
                     b.Navigation("Company");
+
+                    b.Navigation("ServiceData")
+                        .IsRequired();
 
                     b.Navigation("ServiceType");
                 });

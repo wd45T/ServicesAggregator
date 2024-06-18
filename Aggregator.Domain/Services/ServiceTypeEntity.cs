@@ -6,7 +6,7 @@ public class ServiceTypeEntity : BaseEntity
 {
     public string Name { get; set; }
 
-    public ServiceTypeEntity() { }
+    private ServiceTypeEntity() { }
 
     public static ServiceTypeEntity Create(string name)
     {

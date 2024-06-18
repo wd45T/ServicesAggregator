@@ -2,4 +2,4 @@
 
 namespace Aggregator.Application.UseCases.User.GetServices;
 
-public record GetServicesQuery : IRequest<IEnumerable<string>>;
+public record GetServicesQuery : IRequest<object>;

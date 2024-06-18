@@ -61,8 +61,6 @@ public class UnitOfWork : DbContext, IUnitOfWork
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        modelBuilder.InitializeData();
-
         base.OnModelCreating(modelBuilder);
     }
 

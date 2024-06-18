@@ -13,5 +13,8 @@ internal class ServiceTypeEntityConfig : IEntityTypeConfiguration<ServiceTypeEnt
         BaseEntityConfig.Configure(builder);
 
         builder.Property(x => x.Name).IsRequired();
+
+        builder.HasIndex(e => e.Name)
+            .IsUnique();
     }
 }
